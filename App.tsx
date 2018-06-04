@@ -4,7 +4,8 @@ import { Backend } from './Backend'
 import { Repository } from './Repository'
 import { Event } from './Event'
 
-const backend = new Backend(new Repository());
+const repository = new Repository();
+const backend = new Backend(repository);
 
 export default class App extends React.Component<{}> {
   render() {
