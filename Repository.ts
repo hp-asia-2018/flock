@@ -32,4 +32,15 @@ export class Repository {
             console.error("Error adding document: ", error);
         });
     }
+
+    async getEvents(): Promise<Array<Event>> {
+        return this.db.collection("events").get().then((querySnapshot) => {
+            const events = new Array<Event>();
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                events.push(new Event(data.name));
+            });
+            return events;
+        });
+    }
 }
