@@ -4,6 +4,7 @@ import { EventService } from './backend/EventService'
 import { Repository } from './backend/Repository'
 import { Event } from './backend/Event'
 import { EventList } from './components/EventList';
+import PopupDialog from 'react-native-popup-dialog';
 
 const repository = new Repository();
 const backend = new EventService(repository);
@@ -13,12 +14,14 @@ type State = {
 }
 
 export default class App extends React.Component<{}, State> {
+  private popupDialog: any;
+
   constructor(props: any) {
     super(props);
 
     this.state = {
       events: [],
-    }
+    };
 
     repository.onSnapshot((events) => {
       this.setState({
@@ -29,6 +32,7 @@ export default class App extends React.Component<{}, State> {
 
   render() {
     return (
+
       <View style={styles.container}>
         {this.renderList()}
 
@@ -37,9 +41,32 @@ export default class App extends React.Component<{}, State> {
         >
           <Button
             title="Create event"
-            onPress={this.createEvent}
+            onPress={() => {
+              this.popupDialog.show();
+              // this.popupDialog = ref;
+            }}
           />
         </View>
+
+          <PopupDialog
+            ref={(popupDialog) => { this.popupDialog = popupDialog; }}
+          >
+            <View
+              style={[styles.createEventModal]}
+            >
+              <Text>Title</Text>
+              <Text>Date</Text>
+              <Text>Time</Text>
+              <Text>Location</Text>
+              <Button
+                title="Save event"
+                onPress={() => {
+                  this.createEvent();
+                  this.popupDialog.dismiss();
+                }}
+              />
+            </View>
+          </PopupDialog>
       </View>
     );
   }
@@ -74,5 +101,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 50,
     right: 50,
+  },
+  createEventModal: {
+    position: 'relative'
   }
 });

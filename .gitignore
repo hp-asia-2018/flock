@@ -3,6 +3,9 @@
 # expo
 .expo/
 
+# IntelliJ
+.idea
+
 # dependencies
 /node_modules
 
