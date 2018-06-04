@@ -1,5 +1,10 @@
 import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
+import { Backend } from './Backend'
+import { Repository } from './Repository'
+import { Event } from './Event'
+
+const backend = new Backend(new Repository());
 
 export default class App extends React.Component<{}> {
   render() {
@@ -8,8 +13,12 @@ export default class App extends React.Component<{}> {
         <Text>Open up App.ts to start working on your app!</Text>
         <Text>Changes you make will automatically reload.</Text>
         <Text>Shake your phone to open the developer menu.</Text>
+        <Button title="Create event" onPress={this.createEvent} />
       </View>
     );
+  }
+  createEvent() {
+    backend.postNewEvent(new Event("text"))
   }
 }
 
