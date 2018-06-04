@@ -41,7 +41,7 @@ export class Repository {
             const events = new Array<Event>();
             querySnapshot.forEach((doc) => {
                 const data = doc.data();
-                events.push(new Event(data.name));
+                events.push(new Event(data.name, data.datetime, data.location));
             });
             return events;
         });
@@ -52,7 +52,7 @@ export class Repository {
             const events = new Array<Event>();
             querySnapshot.forEach((doc) => {
                 const data = doc.data();
-                events.push(new Event(data.name));
+                events.push(new Event(data.name, data.datetime, data.location));
             });
 
             fn(events);

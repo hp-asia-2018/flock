@@ -16,7 +16,8 @@ export class EventCard extends React.Component<Props> {
         return (
             <View style={[styles.container]}>
                 <Text>{this.props.event.name}</Text>
-                <Text>Description</Text>
+                <Text>{this.props.event.datetime}</Text>
+                <Text>{this.props.event.location}</Text>
             </View>
         );
     }
