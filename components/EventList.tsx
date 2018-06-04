@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ListView } from 'react-native';
+import { ListView, StyleSheet } from 'react-native';
 import { Event } from '../backend/Event';
 import { EventCard } from './EventCard';
 
@@ -31,9 +31,19 @@ export class EventList extends React.Component<Props, State> {
   render() {
     return (
       <ListView
+        style={styles.container}
         dataSource={this.state.ds}
         renderRow={(r) => <EventCard event={r} />}
       />
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+      // backgroundColor: '#fff',
+      // margin: 5,
+      flex: 1,
+      width: '100%',
+  },
+});

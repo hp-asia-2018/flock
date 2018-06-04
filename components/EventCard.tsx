@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { Event } from '../backend/Event';
 
 
@@ -14,10 +14,21 @@ export class EventCard extends React.Component<Props> {
 
     render() {
         return (
-            <View>
+            <View style={[styles.container]}>
                 <Text>{this.props.event.name}</Text>
                 <Text>Description</Text>
             </View>
         );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: '#fff',
+        margin: 8,
+        flex: 1,
+        // width: '100%',
+        alignSelf: 'stretch',
+        padding: 20,
+    },
+});
