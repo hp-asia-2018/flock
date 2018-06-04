@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ListView } from 'react-native';
-import { Event } from '../Event';
+import { Event } from '../backend/Event';
 import { EventCard } from './EventCard';
 
 export type Props = {

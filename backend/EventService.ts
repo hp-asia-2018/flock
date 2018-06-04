@@ -2,7 +2,10 @@
 import { Repository } from './Repository'
 import { Event } from './Event'
 
-export class Backend {
+/**
+ * Provides high level actions that the user can take
+ */
+export class EventService {
     constructor(private repository: Repository) {}
 
     postNewEvent(event: Event) {

@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
-import { Backend } from './Backend'
-import { Repository } from './Repository'
-import { Event } from './Event'
+import { EventService } from './backend/EventService'
+import { Repository } from './backend/Repository'
+import { Event } from './backend/Event'
 import { EventList } from './components/EventList';
 
 const repository = new Repository();
-const backend = new Backend(repository);
+const backend = new EventService(repository);
 
 type State = {
   events: Event[];
