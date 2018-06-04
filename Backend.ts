@@ -6,6 +6,6 @@ export class Backend {
     constructor(private repository: Repository) {}
 
     postNewEvent(event: Event) {
-        this.repository.createEvent(event)
+        this.repository.createEvent(event);
     }
 }
