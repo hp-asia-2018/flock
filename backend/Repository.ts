@@ -4,6 +4,7 @@ require('firebase/firestore');
 import { Event } from './Event';
 
 export class Repository {
+    private user: firebase.User|null = null
     private db: firebase.firestore.Firestore
 
     constructor() {
@@ -18,6 +19,20 @@ export class Repository {
 
         if (!firebase.apps.length) {
             firebase.initializeApp(config);
+            firebase.auth().onAuthStateChanged((newUser) => {
+                if (newUser) {
+                    // User is signed in.
+                    this.user = newUser;
+                } else {
+                    // User is signed out.
+                }
+            });
+            firebase.auth().signInAnonymously().catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // ...
+            });
         }
 
         this.db = firebase.firestore();
