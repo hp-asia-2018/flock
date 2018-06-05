@@ -1,6 +1,19 @@
 {
   "expo": {
+    "name": "Flock",
+    "version": "1.0.0",
+    "slug": "flock",
+    "orientation": "portrait",
+    "icon": "./app-icon.png",
+    "primaryColor": "f9993a",
+    "ios": {
+      "bundleIdentifier": "org.flock"
+    },
+    "android": {
+      "package": "org.flock"
+    },
     "sdkVersion": "27.0.0",
+    "privacy": "unlisted",
     "packagerOpts": {
       "sourceExts": ["ts", "tsx"],
       "transformer": "node_modules/react-native-typescript-transformer/index.js"
