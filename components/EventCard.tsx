@@ -1,4 +1,5 @@
 import * as React from 'react';
+import moment from 'moment';
 import { View, Text, StyleSheet } from 'react-native';
 import { Event } from '../backend/Event';
 
@@ -13,11 +14,13 @@ export class EventCard extends React.Component<Props> {
     }
 
     render() {
+        const { name, datetime, location } = this.props.event;
+        const timeDisplay = moment(datetime.toDate()).format('LT');
         return (
             <View style={[styles.container]}>
-                <Text>{this.props.event.name}</Text>
-                <Text>{this.props.event.datetime}</Text>
-                <Text>{this.props.event.location}</Text>
+                <Text>{name}</Text>
+                <Text>{timeDisplay}</Text>
+                <Text>{location}</Text>
             </View>
         );
     }

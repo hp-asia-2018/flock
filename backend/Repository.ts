@@ -1,6 +1,7 @@
 
 import * as firebase from 'firebase';
 require('firebase/firestore');
+import moment from 'moment';
 import { Event } from './Event';
 
 export class Repository {
@@ -52,7 +53,12 @@ export class Repository {
             const events = new Array<Event>();
             querySnapshot.forEach((doc) => {
                 const data = doc.data();
-                events.push(new Event(data.name, data.datetime, data.location));
+                const startOfDay = moment().startOf('day').milliseconds();
+                const endOfDay = moment().endOf('day').milliseconds();
+                const eventMillis = data.datetime.toMillis();
+                if (eventMillis > startOfDay && eventMillis < endOfDay) {
+                    events.push(new Event(data.name, data.datetime, data.location));    
+                }
             });
 
             fn(events);
