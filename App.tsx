@@ -6,7 +6,6 @@ import { Repository } from './backend/Repository'
 import { Event } from './backend/Event'
 import { EventList } from './components/EventList';
 import PopupDialog from 'react-native-popup-dialog';
-import registerForPushNotificationsAsync from './services/registerForPushNotificationsAsync';
 
 const repository = new Repository();
 const backend = new EventService(repository);
@@ -40,8 +39,6 @@ export default class App extends React.Component<{}, State> {
   }
 
   componentDidMount() {
-    registerForPushNotificationsAsync();
-
     // Handle notifications that are received or selected while the app
     // is open. If the app was closed and then opened by tapping the
     // notification (rather than just tapping the app icon to open it),

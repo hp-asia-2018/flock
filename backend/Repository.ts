@@ -2,6 +2,7 @@
 import * as firebase from 'firebase';
 require('firebase/firestore');
 import { Event } from './Event';
+import { registerForPushNotificationsAsync } from '../services/registerForPushNotificationsAsync';
 
 export class Repository {
     private user: firebase.User|null = null
@@ -23,6 +24,9 @@ export class Repository {
                 if (newUser) {
                     // User is signed in.
                     this.user = newUser;
+					registerForPushNotificationsAsync((token:string) => {
+						this.saveToken(token);
+					});
                 } else {
                     // User is signed out.
                 }
@@ -49,6 +53,17 @@ export class Repository {
             .catch(function (error: any) {
                 console.error("Error adding document: ", error);
             });
+    }
+
+	saveToken(token: string) {
+        this.db.collection("notification_tokens").add({
+			uid: this.user.uid,
+			token: token
+		}).then(function (docRef: firebase.firestore.DocumentReference) {
+            console.log("Document written with ID: ", docRef.id);
+        }).catch(function (error: any) {
+            console.error("Error adding document: ", error);
+        });
     }
 
     async getEvents(): Promise<Array<Event>> {
