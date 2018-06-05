@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { Notifications } from 'expo';
 import { EventService } from './backend/EventService'
 import { Repository } from './backend/Repository'
 import { Event } from './backend/Event'
 import { EventList } from './components/EventList';
 import PopupDialog from 'react-native-popup-dialog';
+import registerForPushNotificationsAsync from './services/registerForPushNotificationsAsync';
 
 const repository = new Repository();
 const backend = new EventService(repository);
@@ -26,7 +28,8 @@ export default class App extends React.Component<{}, State> {
         events: [],
         title: null,
         time: null,
-        location: null
+        location: null,
+		notification: {}
     };
 
     repository.onSnapshot((events) => {
@@ -35,6 +38,21 @@ export default class App extends React.Component<{}, State> {
       });
     });
   }
+
+  componentDidMount() {
+    registerForPushNotificationsAsync();
+
+    // Handle notifications that are received or selected while the app
+    // is open. If the app was closed and then opened by tapping the
+    // notification (rather than just tapping the app icon to open it),
+    // this function will fire on the next tick after the app starts
+    // with the notification data.
+    this._notificationSubscription = Notifications.addListener(this._handleNotification);
+  }
+
+  _handleNotification = (notification) => {
+    this.setState({notification: notification});
+  };
 
   render() {
     return (
