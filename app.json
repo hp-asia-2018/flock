@@ -5,7 +5,7 @@
     "slug": "flock",
     "orientation": "portrait",
     "icon": "./app-icon.png",
-    "primaryColor": "f9993a",
+    "primaryColor": "#f9993a",
     "ios": {
       "bundleIdentifier": "org.flock"
     },
